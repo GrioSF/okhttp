@@ -393,6 +393,12 @@ public final class ResponseHeaders {
       return ResponseSource.NETWORK;
     }
 
+    // LCH-Patched to allow for offline access to the http
+    // cache irrespective of the lastModified or etag
+    if (request.isOnlyIfCached()) {
+        return ResponseSource.CACHE;
+    }
+
     if (request.isNoCache() || request.hasConditions()) {
       return ResponseSource.NETWORK;
     }
